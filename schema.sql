@@ -1,0 +1,31 @@
+DROP DATABASE IF EXISTS employeeTrackerDB;
+
+CREATE DATABASE employeeTrackerDB;
+
+USE employeeTrackerDB;
+
+CREATE TABLE dept (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    dept_name VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE title (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    title VARCHAR(30) NOT NULL,
+    salary INT UNSIGNED NULL,
+    dept_id INT UNSIGNED,
+    PRIMARY KEY (id),
+    FOREIGN KEY (dept_id) REFERENCES dept(id) ON DELETE CASCADE,
+);
+
+CREATE TABLE employee (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    title_id INT UNSIGNED,
+    manager_id INT UNSIGNED,
+    PRIMARY KEY (id),
+    FOREIGN KEY (title_id) REFERENCES title(id) ON DELETE CASCADE,
+    FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
+);
